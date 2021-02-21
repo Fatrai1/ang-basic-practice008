@@ -63,12 +63,29 @@ export class EventService {
     return of(this.list[index]);
   }
 
+//  Create metódus az EventService -ben.
+// > Hozd létre a create metódust, ami hozzáadja a kapott eseményt a list tömbhöz,
+// majd a list$ -on keresztül értesíti a feliratkozókat, hogy módosltak az adatok
+// (az update metódushoz hasonlóan).
+
   create(event: Event): Observable<Event> {
     event.id=0;
     const index: number = event.id;
     this.list.push(event);
     this.getAll();
     return of(this.list[index]);
+  }
+
+//   1. Remove metódus az EventService -ben.
+// > Hozd létre a remove metódust, ami eltávolít egy elemet a kapott id alapján
+// a list tömbből, majd a list$ -on keresztül értesíti a feliratkozókat, hogy
+// módosultak az adatok (az update metódushoz hasonlóan).
+
+  remove(id: number): void {
+    this.list.forEach( (element,index) => {
+      if(element.id === id) this.list.splice(index,1);
+    })
+    this.getAll();
   }
 }
 
